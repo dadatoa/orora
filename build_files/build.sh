@@ -26,4 +26,3 @@ dnf5 install -y cockpit cockpit-files cockpit-ostree cockpit-podman plasma-bigsc
 
 systemctl enable podman.socket
 systemctl enable cockpit.socket
-systemctl enable nix-daemon
