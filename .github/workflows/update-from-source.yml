@@ -11,6 +11,9 @@ on:
 jobs:
   sync:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       # 1. Checkout your target repository
       - name: Checkout target repository
