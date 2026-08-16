@@ -1,0 +1,26 @@
+name: "Sync Template Changes"
+
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+  
+  # Optional: Automatically check for updates on a schedule (e.g., every Monday at midnight)
+  schedule:
+    - cron: "0 0 * * 1"
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Checkout your target repository
+      - name: Checkout target repository
+        uses: actions/checkout@v7
+
+      # 2. Run the template sync action
+      - name: Run actions-template-sync
+        uses: AndreasAugustin/actions-template-sync@v3
+        with:
+          source_repo_path: "ublue-os/image-template.git"
+          upstream_branch: "main" # Change to "master" if the template uses master
+          source_gh_token: ${{ secrets.PAT }}
+          target_gh_token: ${{ secrets.GITHUB_TOKEN }}
