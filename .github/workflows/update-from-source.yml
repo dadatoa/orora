@@ -22,5 +22,3 @@ jobs:
         with:
           source_repo_path: "ublue-os/image-template.git"
           upstream_branch: "main" # Change to "master" if the template uses master
-          source_gh_token: ${{ secrets.PAT }}
-          target_gh_token: ${{ secrets.GITHUB_TOKEN }}
