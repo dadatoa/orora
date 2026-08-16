@@ -18,7 +18,7 @@ jobs:
 
       # 2. Run the template sync action
       - name: Run actions-template-sync
-        uses: AndreasAugustin/actions-template-sync@v3
+        uses: AndreasAugustin/actions-template-sync@v2
         with:
           source_repo_path: "ublue-os/image-template.git"
           upstream_branch: "main" # Change to "master" if the template uses master
