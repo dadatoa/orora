@@ -16,6 +16,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
+      - name: Configure Git with PAT
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
       - name: Template Sync
         uses: AndreasAugustin/actions-template-sync@v2.6.0
         with:
