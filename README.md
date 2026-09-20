@@ -4,6 +4,21 @@ built from template https://github.com/ublue-os/image-template.git
 
 This repository is meant to be a template for building your own custom [bootc](https://github.com/bootc-dev/bootc) image. This template is the recommended way to make customizations to any image published by the Universal Blue Project.
 
+## Process to update from template
+
+- I use git worktree. I create a new branch *update* and a new worktree asociated with this branch. 
+- I add the template remote as upstream : `git remote add upstream https://github.com/ublue-os/image-template.git`
+- I fetch the upstream main : `git fetch upstream main`
+- I make sure I work on the update branch ; as I use worktree in bare repos:
+``` bash
+git branch update
+git worktree add update
+cd update
+```
+- I merge the upstream branch : `git merge upstream/main`
+- I resolve conflicts
+- once finished, I merge update branch in main, locally by hand or push it on github and create pull request
+
 # Community
 
 If you have questions about this template after following the instructions, try the following spaces:
