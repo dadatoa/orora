@@ -2,7 +2,6 @@
 FROM scratch AS ctx
 COPY build_files /
 COPY system_files /system_files
-<<<<<<< HEAD
 
 # Base Image
 FROM ghcr.io/ublue-os/aurora-dx:stable
@@ -32,11 +31,6 @@ FROM ghcr.io/ublue-os/aurora-dx:stable
 ### MODIFICATIONS
 ## make modifications desired in your image and install packages by modifying the build.sh script
 ## the following RUN directive does all the things required to run "build.sh" as recommended.
-=======
-FROM ghcr.io/ublue-os/aurora-dx:stable
-
-
->>>>>>> b085fec (çgit add .git add .git add .git add .git add .git add .git add .)
 RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=cache,dst=/var/cache \
     --mount=type=cache,dst=/var/log \
