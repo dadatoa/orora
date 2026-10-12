@@ -17,16 +17,21 @@ jobs:
       actions: write
     steps:
       # 1. Checkout your target repository
+      # NOTE: actions/checkout stores its `token` in the origin remote URL, and git
+      # uses those baked-in credentials for every later push -- the token the sync
+      # action configures at push time is ignored. So the PAT must be passed to
+      # checkout, not only to the action. GITHUB_TOKEN can never create/update files
+      # under .github/workflows/ (the `workflows` permission is not grantable), and the
+      # sync branch touches build.yml/build-disk.yml. The PAT needs `workflow` scope
+      # (classic) or Workflows: read+write (fine-grained).
       - name: Checkout target repository
         uses: actions/checkout@v7
+        with:
+          token: ${{ secrets.PAT }}
 
-      # 2. Run the template sync action
-      # NOTE: the built-in GITHUB_TOKEN cannot create or update files under
-      # .github/workflows/ (it can never be granted the `workflows` permission).
-      # The sync branch touches build.yml/build-disk.yml, so the push back to this
-      # repo MUST use a PAT with the `workflow` scope (classic) or Workflows: write
-      # (fine-grained), stored as the `PAT` repo secret. Without it the push is
-      # rejected with "refusing to allow a GitHub App to create or update workflow".
+      # 2. Run the template sync action.
+      # target_gh_token only drives the gh CLI (PR/labels); the actual push uses the
+      # checkout token above.
       - name: Run actions-template-sync
         uses: AndreasAugustin/actions-template-sync@v2
         with:
