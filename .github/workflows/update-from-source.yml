@@ -21,8 +21,16 @@ jobs:
         uses: actions/checkout@v7
 
       # 2. Run the template sync action
+      # NOTE: the built-in GITHUB_TOKEN cannot create or update files under
+      # .github/workflows/ (it can never be granted the `workflows` permission).
+      # The sync branch touches build.yml/build-disk.yml, so the push back to this
+      # repo MUST use a PAT with the `workflow` scope (classic) or Workflows: write
+      # (fine-grained), stored as the `PAT` repo secret. Without it the push is
+      # rejected with "refusing to allow a GitHub App to create or update workflow".
       - name: Run actions-template-sync
         uses: AndreasAugustin/actions-template-sync@v2
         with:
           source_repo_path: "ublue-os/image-template.git"
           upstream_branch: "main" # Change to "master" if the template uses master
+          source_gh_token: ${{ secrets.GITHUB_TOKEN }}
+          target_gh_token: ${{ secrets.PAT }}
